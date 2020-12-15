@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import springbootrediscache.models.User;
 
 @Configuration
@@ -23,6 +24,13 @@ public class AppConfig {
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
         return redisTemplate;
     }
-    //@Bean
-   // public DriverManagerDataSource dataSource() { /*code*/ }
+    @Bean
+    public DriverManagerDataSource getDataSource() {
+        final DriverManagerDataSource  ds = new DriverManagerDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setUrl("jdbc:mysql://localhost:3306/test");
+        ds.setUsername("root");
+        ds.setPassword("password");
+        return ds;
+    }
 }
