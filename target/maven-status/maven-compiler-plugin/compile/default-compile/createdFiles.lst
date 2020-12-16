@@ -1,6 +1,0 @@
-springbootrediscache/AppConfig.class
-springbootrediscache/models/User.class
-springbootrediscache/SpringBootRedisCacheApplication.class
-springbootrediscache/controllers/UserController.class
-springbootrediscache/repository/UserRepositoryImpl.class
-springbootrediscache/repository/UserRepository.class

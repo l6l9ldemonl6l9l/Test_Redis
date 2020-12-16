@@ -1,21 +1,22 @@
 package springbootrediscache;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import springbootrediscache.models.User;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class AppConfig {
+    @Autowired
+    private Environment env;
     @Resource
     private Environment environment;
     @Value("${spring.datasource.username}")
@@ -28,9 +29,12 @@ public class AppConfig {
     private String datasourceUrl;
 
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
-        return new JedisConnectionFactory(redisStandaloneConfiguration);
+    public JedisConnectionFactory jedisConnectionFactory() {
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.setUsePool(true);
+        jedisConnectionFactory.setHostName(env.getProperty("redis.host"));
+        jedisConnectionFactory.setPort(env.getProperty("redis.port", Integer.class));
+        return jedisConnectionFactory;
     }
 
     @Bean
