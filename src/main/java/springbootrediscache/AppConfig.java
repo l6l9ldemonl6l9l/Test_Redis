@@ -43,18 +43,9 @@ public class AppConfig {
     public DriverManagerDataSource getDataSource() {
         final DriverManagerDataSource  ds = new DriverManagerDataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl(datasourceUsernameKey);
-        ds.setUsername(datasourcePasswordKey);
-        ds.setPassword(datasourceUrl);
+        ds.setUrl(datasourceUrl);
+        ds.setUsername(datasourceUsernameKey);
+        ds.setPassword(datasourcePasswordKey);
         return ds;
     }
-  /**  @Bean
-    public DriverManagerDataSource getDataSource() {
-        final DriverManagerDataSource  ds = new DriverManagerDataSource();
-        ds.setDriverClassName("com.mysql.jdbc.Driver");
-        ds.setUrl("jdbc:mysql://localhost:3306/test");
-        ds.setUsername("root");
-        ds.setPassword("password");
-        return ds;
-    }*/
 }
